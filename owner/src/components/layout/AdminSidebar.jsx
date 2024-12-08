@@ -6,7 +6,7 @@ import {
   Users,
   Building,
   MapPin,
-  DollarSign,
+  IndianRupee,
   UserPlus,
   ChevronDown,
   ChevronUp,
@@ -29,7 +29,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar, className }) => {
     { to: "/admin/users", label: "Users", icon: Users },
     { to: "/admin/owners", label: "Owners", icon: Building },
     { to: "/admin/turfs", label: "Turfs", icon: MapPin },
-    { to: "/admin/transactions", label: "Transactions", icon: DollarSign },
+    { to: "/admin/transactions", label: "Transactions", icon: IndianRupee },
   ];
 
   const toggleOwnerRequests = () => {
