@@ -8,8 +8,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#22c55e",
-        "primary-focus": "#16a34a",
+        primary: "#15d14d",
+        "primary-focus": "#10b043",
       },
       backgroundImage:{
         "banner": "url('/r.png')",
