@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 import { Carousel, Footer } from "@components/common";
 
-import banner1 from "/banner-1.png";
-import banner2 from "/banner-2.jpeg";
-import banner3 from "/banner-3.jpeg";
+import banner1 from "/banner-1.jpg";
+import banner2 from "/banner-2.jpg";
+import banner3 from "/banner-3.jpg";
 
 const Home = () => {
   const slides = [banner1, banner2, banner3];
@@ -19,9 +19,8 @@ const Home = () => {
           <div className="w-full lg:w-1/2">
             <h1 className="text-5xl font-bold">Welcome to TurfUp</h1>
             <p className="py-6">
-              Discover and book the best turf fields in your area. Whether
-              you&#39;re planning a casual game or a tournament, TurfUp has
-              got you covered.
+            we believe every game deserves the perfect stage. Whether you're planning a friendly match, 
+            a competitive tournament, or just some quality time with your squad, we’ve got you covered.
             </p>
             <Link to="/login" className="btn btn-accent">
               Login

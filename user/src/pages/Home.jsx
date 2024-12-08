@@ -23,11 +23,12 @@ const Home = () => {
             <Carousel slides={slides} />
           </div>
           <div className="w-full lg:w-1/2 animate-zoom-in">
-            <h1 className="text-5xl font-bold ">Welcome to TurfUp</h1>
+            <h1 className="text-5xl font-bold ">Welcome to TurfUp: Your Home for the Perfect Play</h1>
             <p className="py-6">
-              Discover and book the best turf fields in your area. Whether
-              you&#39;re planning a casual game or a tournament, TurfUp has
-              got you covered.
+            Explore our available slots, grab your gear, and let the games begin! 
+            At TurfUp, it’s all about you, your team, and unforgettable moments on the field.</p>
+            <p className="py-6">
+            Let’s TurfUp and play on!
             </p>
             <Link
               to={isLoggedIn ? "/auth/turfs" : "/signup"}

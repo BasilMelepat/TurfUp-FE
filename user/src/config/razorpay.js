@@ -16,7 +16,7 @@ export const handlePayment = async (order,user) => {
       currency: order.currency,
       order_id: order.id, // Make sure this is included
       name: "TurfUp",
-      description: "Book a spot for your next adventure",
+      description: "Your Home for the Perfect Play",
 
       handler: function (response) {
          if (response.error) {
