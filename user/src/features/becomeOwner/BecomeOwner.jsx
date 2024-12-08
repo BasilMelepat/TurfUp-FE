@@ -72,10 +72,10 @@ const BecomeOwner = () => {
             </h3>
             <ul className="list-disc pl-5 space-y-2">
               <li>Add and manage multiple turfs</li>
-              <li>View and handle bookings</li>
-              <li>Manage payments and transactions</li>
+              <li>View, Sort and filter bookings</li>
+              <li>View your turf booking payments</li>
               <li>Set availability and pricing</li>
-              <li>Communicate with customers</li>
+              <li>View customers reviews</li>
             </ul>
           </div>
         </div>
