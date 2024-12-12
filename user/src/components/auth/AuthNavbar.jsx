@@ -1,11 +1,16 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import ThemeSwitcher from "../common/ThemeSwitcher.jsx";
 import { logout } from "../../redux/slices/authSlice.js";
 import { useDispatch } from "react-redux";
+import { User } from 'lucide-react';
 
 export default function AuthNavbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state.auth);
+  
   const handleLogout = () => {
     dispatch(logout());
     navigate("/", { replace: true });
@@ -71,9 +76,6 @@ export default function AuthNavbar() {
             <Link to="/auth/turfs">Turfs</Link>
           </li>
           <li>
-            <Link to="/auth/booking-history">My Bookings</Link>
-          </li>
-          <li>
             <NavLink
               to="/auth/become-owner"
               className={({ isActive }) => (isActive ? "text-accent" : "")}
@@ -85,9 +87,23 @@ export default function AuthNavbar() {
       </div>
       <div className="navbar-end">
         <ThemeSwitcher />
-        <button className="btn btn-ghost" onClick={handleLogout}>
-          Logout
-        </button>
+        {/* User Dropdown */}
+        <div className="dropdown dropdown-end">
+          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+            <User className="w-6 h-6" />
+          </div>
+          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+            <li className="menu-title">
+              <span>{user?.name || user?.email || 'User'}</span>
+            </li>
+            <li>
+              <Link to="/auth/booking-history">My Bookings</Link>
+            </li>
+            <li>
+              <a onClick={handleLogout}>Logout</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ const SignUp = () => {
               error={errors.name}
             />
             <FormField
-              label="Email"
+              label="Email (use only valid email)"
               name="email"
               type="email"
               register={register}

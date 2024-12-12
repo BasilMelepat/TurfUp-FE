@@ -22,7 +22,7 @@ const BecomeOwner = () => {
               
             />
             <FormField
-              label="Email"
+              label="Email (use only valid email)"
               name="email"
               type="email"
               register={register}
@@ -55,8 +55,8 @@ const BecomeOwner = () => {
               <li>Fill out the application form with your details.</li>
               <li>Our admin team will review your application thoroughly.</li>
               <li>
-                You&#39;ll receive an email with the decision on your
-                application.
+                <b>You&#39;ll receive an email with the decision on your
+                application.</b>
               </li>
               <li>
                 If approved, the email will contain a link to create your owner
