@@ -37,16 +37,9 @@ export default function AuthNavbar() {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-          >
-            <li>
-              <Link to="/auth">Home</Link>
-            </li>
+            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
             <li>
               <Link to="/auth/turfs">Turfs</Link>
-            </li>
-            <li>
-              <Link to="/auth/booking-history">My Bookings</Link>
             </li>
             <li>
               <NavLink
@@ -69,9 +62,6 @@ export default function AuthNavbar() {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-          <li>
-            <Link to="/auth">Home</Link>
-          </li>
           <li>
             <Link to="/auth/turfs">Turfs</Link>
           </li>

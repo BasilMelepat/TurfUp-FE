@@ -23,17 +23,14 @@ const Home = () => {
             <Carousel slides={slides} />
           </div>
           <div className="w-full lg:w-1/2 animate-zoom-in">
-            <h1 className="text-5xl font-bold ">Welcome to TurfUp: Your Home for the Perfect Play</h1>
+            <h1 className="text-5xl font-bold ">Welcome to <span class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">TurfUp:</span></h1>
             <p className="py-6">
             Explore our available slots, grab your gear, and let the games begin! 
             At TurfUp, it’s all about you, your team, and unforgettable moments on the field.</p>
             <p className="py-6">
             Let’s TurfUp and play on!
             </p>
-            <Link
-              to={isLoggedIn ? "/auth/turfs" : "/signup"}
-              className="btn btn-accent"
-            >
+            <Link to={isLoggedIn ? "/auth/turfs" : "/signup"} className="btn btn-accent">
               Get Started
             </Link>
           </div>
@@ -50,11 +47,11 @@ const Home = () => {
                 .slice(0, 3)
                 .map((turf) => <TurfCard key={turf._id} turf={turf} />)}
         </div>
+        
         <div className="text-center mt-8">
           <Link
             to={isLoggedIn ? "/auth/turfs" : "/turfs"}
-            className="btn btn-primary"
-          >
+            className="btn btn-primary">
             View More Turfs
           </Link>
         </div>
