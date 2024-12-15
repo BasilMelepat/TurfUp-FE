@@ -7,3 +7,42 @@
 body {
   font-family: "Lexend", sans-serif;
 }
+
+a, NavLink {
+  display: inline-block;
+  text-decoration: none;
+}
+
+a:after {
+  display:block;
+  content: '';
+  width: inherit;
+  border-bottom: solid 2px;  
+  transform: scaleX(0);  
+  transition: transform 250ms ease-in-out;
+}
+
+a:hover:after { transform: scaleX(1); }
+
+a.from-left:after {
+  transform-origin: left;
+}
+
+a.no:after { transform: scaleX(0); }
+
+NavLink:after{
+  display:block;
+  content: '';
+  width: inherit;
+  border-bottom: solid 2px;  
+  transform: scaleX(0);  
+  transition: transform 250ms ease-in-out;
+}
+
+NavLink:hover:after { transform: scaleX(1); }
+
+NavLink.from-left:after {
+  transform-origin: left;
+}
+
+NavLink.no:after { transform: scaleX(0); }

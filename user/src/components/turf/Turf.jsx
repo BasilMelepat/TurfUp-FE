@@ -1,5 +1,6 @@
 import { useState } from "react";
 import TurfCard from "./TurfCard.jsx";
+import Footer from "../layout/Footer";
 import TurfCardSkeleton from "../ui/TurfCardSkeleton.jsx";
 import useTurfData from "../../hooks/useTurfData.jsx";
 import SearchTurf from "../search/SearchTurf.jsx";
@@ -25,6 +26,7 @@ const Turf = () => {
   }
 
   return (
+  <div className="min-h-screen bg-base-100 text-base-content">
     <div className="container mx-auto px-4 py-8 ">
       <h1 className="text-3xl font-bold text-center mb-8">Discover Turfs</h1>
       <SearchTurf onSearch={handleSearch} />
@@ -38,6 +40,8 @@ const Turf = () => {
             ))}
       </div>
     </div>
+    <Footer />
+  </div>
   );
 };
 

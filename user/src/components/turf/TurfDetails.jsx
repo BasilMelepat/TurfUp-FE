@@ -55,7 +55,7 @@ const TurfDetails = () => {
     <div className="container mx-auto px-4 py-8">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-slide-in-left">
         <div className="bg-base-100 shadow-xl rounded-lg overflow-hidden">
-          <div className="relative h-96">
+          <div className="relative h-full">
             <img
               src={turf.image || "/banner-1.png"}
               alt={turf.name}
@@ -118,7 +118,7 @@ const TurfDetails = () => {
           </div>
           <div className="card-actions">
             <button
-              className="btn btn-primary btn-lg w-full"
+              className="text-white no bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br font-medium rounded-lg px-5 py-2.5 text-center me-2 mb-10 btn-lg w-full"
               onClick={handleReservation}
             >
               Reserve Now

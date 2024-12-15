@@ -63,7 +63,7 @@ const TurfBookingHistory = () => {
                 </div>
               </div>
               <button
-                className="btn btn-primary mt-4"
+                className="text-white no bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br font-medium rounded-lg px-5 py-2.5 text-center mt-4"
                 onClick={() => openReviewModal(booking.turf._id)}
               >
                 Write a Review

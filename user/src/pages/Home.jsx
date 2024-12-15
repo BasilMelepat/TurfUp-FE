@@ -30,14 +30,14 @@ const Home = () => {
             <p className="py-6">
             Let’s TurfUp and play on!
             </p>
-            <Link to={isLoggedIn ? "/auth/turfs" : "/signup"} className="btn btn-accent">
+            <Link to={isLoggedIn ? "/auth/turfs" : "/signup"} className="text-white no bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
               Get Started
             </Link>
           </div>
         </div>
       </div>
       <div className="container mx-auto  p-4 animate-slide-in-left">
-        <h2 className="text-3xl font-bold mb-6">Featured Turfs</h2>
+        <h2 className="text-3xl font-bold mb-6 mt-10">Featured Turfs</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {loading
             ? Array.from({ length: 3 }).map((_, index) => (
@@ -51,7 +51,7 @@ const Home = () => {
         <div className="text-center mt-8">
           <Link
             to={isLoggedIn ? "/auth/turfs" : "/turfs"}
-            className="btn btn-primary">
+            className="text-white no bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-10">
             View More Turfs
           </Link>
         </div>

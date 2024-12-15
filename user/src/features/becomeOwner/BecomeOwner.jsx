@@ -2,6 +2,7 @@ import FormField from "../../components/common/FormField";
 import Button from "../../components/common/Button";
 import useBecomeOwner from "../../hooks/useBecomeOwner";
 
+
 const BecomeOwner = () => {
   const { register, handleSubmit, errors, onSubmit, loading } =
     useBecomeOwner();
@@ -35,7 +36,7 @@ const BecomeOwner = () => {
               register={register}
               error={errors.phone}
             />
-            <Button className="btn btn-primary w-full mt-6" loading={loading}>
+            <Button className="text-white no bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br font-medium rounded-lg px-5 py-2.5 text-center me-2 mb-10 btn-lg w-full mt-6" loading={loading}>
               Submit Application
             </Button>
           </form>

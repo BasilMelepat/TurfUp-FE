@@ -76,7 +76,7 @@ const WriteReview = ({
             </button>
             <button
               type="submit"
-              className="btn btn-primary"
+              className="text-white no bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Submitting..." : "Submit Review"}

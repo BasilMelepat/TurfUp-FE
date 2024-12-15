@@ -24,12 +24,12 @@ const TurfCard = ({ turf }) => {
         <p className="mt-2">
           Open: {turf.openTime} - {turf.closeTime}
         </p>
-        <div className="card-actions justify-end mt-4">
+        <div className="card-actions mt-4">
           <Link
             to={isLoggedIn ? `/auth/turf/${turf._id}` : `/turf/${turf._id}`}
-            className="btn btn-primary"
-          >
-            View Details
+            className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 text-sm font-medium rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-dark">
+              <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-white rounded-md group-hover:bg-opacity-0">
+              View Details</span>
           </Link>
         </div>
       </div>

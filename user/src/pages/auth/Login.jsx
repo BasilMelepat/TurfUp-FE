@@ -27,13 +27,13 @@ const Login = () => {
               error={errors.password}
             />
             <div className="form-control mt-6">
-              <Button type="submit" className="btn-primary" loading={loading}>
+              <Button type="submit" className="text-white no bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br font-medium rounded-lg px-5 py-2.5 text-center" loading={loading}>
                 Login
               </Button>
             </div>
           </form>
           <div className="text-center mt-4">
-            <Link to="/signup" className="link link-hover">
+            <Link to="/signup" className="from-left">
               Don&#39;t have an account? Register
             </Link>
           </div>
