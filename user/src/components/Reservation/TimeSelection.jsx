@@ -32,7 +32,7 @@ const TimeSelection = ({
             key={time}
             className={`btn btn-sm ${
               isTimeSlotSelected(time)
-                ? "bg-blue-500 hover:bg-blue-600 text-white"
+                ? "text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-lg text-sm text-center me-2 mb-2"
                 : isTimeSlotDisabled(time)
                 ? "btn-disabled"
                 : "btn-ghost"

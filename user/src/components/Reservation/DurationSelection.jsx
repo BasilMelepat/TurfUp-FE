@@ -14,7 +14,7 @@ const DurationSelection = ({
           <button
             key={hours}
             className={`btn flex-1 ${
-              duration === hours ? "btn-primary" : "btn-outline"
+              duration === hours ? "text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 " : "from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br hover:text-white"
             }`}
             onClick={() => handleDurationChange(hours)}
             disabled={!isDurationAvailable(selectedStartTime, hours)}

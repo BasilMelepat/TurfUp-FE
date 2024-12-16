@@ -59,7 +59,7 @@ if( loading) return <ReservationSkeleton />;
           )}
           <div className="mt-6">
             <button
-              className="btn btn-primary w-full relative"
+              className="text-white w-full no bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br font-medium rounded-lg px-5 py-2.5 text-center"
               disabled={
                 !selectedStartTime ||
                 !isDurationAvailable(selectedStartTime, duration) ||

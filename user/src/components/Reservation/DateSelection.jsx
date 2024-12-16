@@ -25,7 +25,7 @@ const DateSelection = ({ selectedDate, handleDateChange }) => {
         >
           PREV DATE
         </button>
-        <div className="badge badge-primary text-lg p-4">
+        <div className="badge text-lg text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br p-4">
           {format(selectedDate, "dd-MM-yyyy")}
         </div>
         <button

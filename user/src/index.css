@@ -29,20 +29,3 @@ a.from-left:after {
 }
 
 a.no:after { transform: scaleX(0); }
-
-NavLink:after{
-  display:block;
-  content: '';
-  width: inherit;
-  border-bottom: solid 2px;  
-  transform: scaleX(0);  
-  transition: transform 250ms ease-in-out;
-}
-
-NavLink:hover:after { transform: scaleX(1); }
-
-NavLink.from-left:after {
-  transform-origin: left;
-}
-
-NavLink.no:after { transform: scaleX(0); }

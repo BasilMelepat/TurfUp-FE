@@ -86,7 +86,7 @@ const Navbar = () => {
               <NavLinks />
               <Link 
                 to="/login" 
-                className="px-4 py-2 bg-base-100 hover:underline rounded-md"
+                className="from-left px-4 py-2 bg-base-100 rounded-md"
               >
                 Login
               </Link>
