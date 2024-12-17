@@ -1,59 +1,94 @@
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
+import { Menu, X } from 'lucide-react';
 import ThemeSwitcher from "../common/ThemeSwitcher.jsx";
 
 const GuestNavbar = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const NavLinks = () => (
+    <>
+      <Link 
+        to="/" 
+        className="from-left px-3 py-2 rounded-md transition-colors"
+      >
+        Home
+      </Link>
+    </>
+  );
+
   return (
-    <div className="navbar bg-base-100 fixed top-0 z-50 shadow-md">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <label tabIndex={0} className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />
-            </svg>
-          </label>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+    <nav className="fixed w-full z-20 top-0 left-0 bg-base-100 shadow-md">
+      <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between">
+        {/* Logo Section */}
+        <div className="flex items-center">
+          <Link 
+            to="/" 
+            className="flex items-center space-x-2 text-xl font-semibold"
           >
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-          </ul>
+            <img 
+              src="/logo.png" 
+              alt="TurfUp" 
+              className="h-10 w-10 rounded-full"
+            />
+            <span>TurfUp</span>
+          </Link>
         </div>
-        <Link to="/" className="btn btn-ghost normal-case text-xl">
-          <img
-            src="/logo.png"
-            alt="TurfUp"
-            className="h-10 w-10 mask mask-squircle"
-          />
-          TurfUp
-        </Link>
+
+        {/* Desktop Navigation Links */}
+        <div className="hidden lg:flex items-center space-x-4">
+          <NavLinks />
+        </div>
+
+        {/* Right Side (Theme Switcher & Signup) */}
+        <div className="flex items-center space-x-4">
+          <ThemeSwitcher />
+          <Link 
+            to="/signup" 
+            className="hidden lg:block px-2 py-2 bg-base-100 from-left rounded-md transition-colors"
+          >
+            Sign up
+          </Link>
+
+          {/* Mobile Menu Toggle */}
+          <button 
+            onClick={toggleMobileMenu} 
+            className="lg:hidden focus:outline-none"
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-        </ul>
-      </div>
-      <div className="navbar-end">
-        <ThemeSwitcher />
-        <Link to="/signup" className="btn btn-primary">
-          Sign up
-        </Link>
-      </div>
-    </div>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 bg-black/50 z-30 lg:hidden" onClick={toggleMobileMenu}>
+          <div 
+            className="absolute top-0 right-0 w-64 h-full bg-base-100 shadow-lg p-6 space-y-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex justify-end">
+              <button onClick={toggleMobileMenu} className="focus:outline-none">
+                <X size={24} />
+              </button>
+            </div>
+            <div className="flex flex-col space-y-3">
+              <NavLinks />
+              <Link 
+                to="/signup" 
+                className="from-left px-3 py-2 bg-base-100 rounded-md"
+              >
+                Sign up
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+    </nav>
   );
 };
 
