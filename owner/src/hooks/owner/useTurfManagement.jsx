@@ -48,13 +48,17 @@ const useTurfManagement = () => {
     }
   };
 
-  const deleteTurf = async (id) => {
+  const deleteTurf = async (turfId) => {
     try {
-      // Replace this with your actual API call
-      await fetch(`/api/turfs/${id}`, { method: "DELETE" });
-      setTurfs((prev) => prev.filter((turf) => turf.id !== id));
+      const response = await axiosInstance.delete(`/api/owner/turf/delete/${turfId}`);
+      if (response.data.success) {
+        setTurfs(response.data.allTurfs);
+        return response.data;
+      }
     } catch (err) {
+      console.error('Delete turf error:', err);
       setError("Failed to delete turf");
+      throw err;
     }
   };
 
