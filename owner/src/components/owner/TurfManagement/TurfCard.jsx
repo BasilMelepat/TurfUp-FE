@@ -1,7 +1,7 @@
 import React from "react";
-import { Edit2, Trash2, Clock, MapPin, Tag, Star } from "lucide-react";
+import { Settings, Trash2, Clock, MapPin, Tag, Star } from "lucide-react";
 
-const TurfCard = ({ turf, onEdit }) => {
+const TurfCard = ({ turf, onEdit, onDelete }) => {
   return (
     <div className="card bg-base-100 shadow-xl h-full">
       <figure className="px-4 pt-4">
@@ -44,13 +44,21 @@ const TurfCard = ({ turf, onEdit }) => {
           ))}
         </div>
         <div className="card-actions justify-end mt-4">
+        <button
+            className="btn text-white bg-red-700 hover:bg-red-800 btn-sm"
+            onClick={() => onDelete(turf)}
+          >
+            <Trash2 size={14} className="mr-" /> Trash
+          </button>
           <button
-            className="btn btn-primary btn-sm"
+            className="btn text-white btn-sm bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br"
             onClick={() => onEdit(turf)}
           >
-            <Edit2 size={14} className="mr-1" /> Edit
+            <Settings size={14} className="mr-" /> Edit
           </button>
+          
         </div>
+        
       </div>
     </div>
   );

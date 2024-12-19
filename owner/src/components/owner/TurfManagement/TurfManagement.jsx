@@ -3,9 +3,10 @@ import useTurfManagement from "@hooks/owner/useTurfManagement";
 import EditTurfForm from "./EditTurfForm";
 import TurfCardSkeleton from "./TurfCardSkeleton";
 import TurfCard from "./TurfCard";
+import { toast } from "react-hot-toast";
 
 const TurfManagement = () => {
-  const { turfs, isLoading, error, fetchTurfs, editTurf } = useTurfManagement();
+  const { turfs, isLoading, error, fetchTurfs, editTurf, deleteTurf } = useTurfManagement();
   const [editingTurf, setEditingTurf] = useState(null);
 
   useEffect(() => {
@@ -16,17 +17,39 @@ const TurfManagement = () => {
     setEditingTurf(turf);
   };
 
-  const handleSaveEdit = (updatedTurf, turfId) => {
-    editTurf(updatedTurf, turfId);
-    setEditingTurf(null);
+  const handleSaveEdit = async (updatedTurf, turfId) => {
+    try {
+      await editTurf(updatedTurf, turfId);
+      setEditingTurf(null);
+      toast.success("Turf updated successfully!");
+    } catch (error) {
+      toast.error("Failed to update turf");
+      console.error("Error updating turf:", error);
+    }
   };
 
   const handleCancelEdit = () => {
     setEditingTurf(null);
   };
 
+  const handleDelete = async (turfId) => {
+    if (window.confirm("Are you sure you want to delete this turf?")) {
+      try {
+        await deleteTurf(turfId);
+        toast.success("Turf deleted successfully!");
+      } catch (error) {
+        toast.error("Failed to delete turf");
+        console.error("Error deleting turf:", error);
+      }
+    }
+  };
+
   if (error) {
-    return <div className="text-error text-center mt-8">{error}</div>;
+    return (
+      <div className="text-red-500 text-center mt-8 font-semibold">
+        {error}
+      </div>
+    );
   }
 
   return (
@@ -53,7 +76,11 @@ const TurfManagement = () => {
                   turfId={turf._id}
                 />
               ) : (
-                <TurfCard turf={turf} onEdit={() => handleEdit(turf)} />
+                <TurfCard
+                  turf={turf}
+                  onEdit={() => handleEdit(turf)}
+                  onDelete={() => handleDelete(turf._id)}
+                />
               )}
             </div>
           ))}

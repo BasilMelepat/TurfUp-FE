@@ -154,7 +154,7 @@ const EditTurfForm = ({ turf, onSave, onCancel, turfId }) => {
           <button type="button" className="btn btn-ghost btn-sm" onClick={onCancel}>
             Cancel
           </button>
-          <button type="submit" className="btn btn-primary btn-sm">
+          <button type="submit" className="btn btn-sm text-white  bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br">
             Save Changes
           </button>
         </div>

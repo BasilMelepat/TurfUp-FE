@@ -188,7 +188,7 @@ const AddTurf = () => {
           </div>
         </div>
         <div className="md:col-span-2">
-          <Button type="submit" className=" btn-primary w-full" loading={loading}>
+          <Button type="submit" className=" text-white  bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br w-full" loading={loading}>
             Add Turf
           </Button>
         </div>
