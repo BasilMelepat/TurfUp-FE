@@ -17,7 +17,7 @@ const Home = () => {
             <Carousel slides={slides} />
           </div>
           <div className="w-full lg:w-1/2">
-          <h1 className="text-5xl font-bold ">Welcome to <span class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">TurfUp:</span></h1>
+          <h1 className="text-5xl font-bold ">Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">TurfUp:</span></h1>
             <p className="py-6">
             We at TurfUp believe every game deserves the perfect stage. Whether you're planning a friendly match, 
             a competitive tournament, or just some quality time with your squad, we’ve got you covered.
