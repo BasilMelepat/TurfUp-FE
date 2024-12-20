@@ -27,6 +27,7 @@ import {
   OwnerViewer,
   TurfList,
   AllTurf,
+  AdminAddTurf,
   TransactionSection,
 } from "@components/admin";
 import ProtectedRoute from "@components/ProtectedRoute/ProtectedRoute";
@@ -81,6 +82,7 @@ const router = createBrowserRouter([
       },
 
       { path: "turfs", element: <AllTurf /> },
+      { path: "admin-add-turf", element: <AdminAddTurf /> },
       { path: "transactions", element: <TransactionSection /> },
     ],
   },

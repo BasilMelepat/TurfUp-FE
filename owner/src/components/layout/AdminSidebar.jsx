@@ -9,6 +9,7 @@ import {
   IndianRupee,
   UserPlus,
   ChevronDown,
+  PlusCircle,
   ChevronUp,
 } from "lucide-react";
 
@@ -29,6 +30,7 @@ const AdminSidebar = ({ isOpen, toggleSidebar, className }) => {
     { to: "/admin/users", label: "Users", icon: Users },
     { to: "/admin/owners", label: "Owners", icon: Building },
     { to: "/admin/turfs", label: "Turfs", icon: MapPin },
+    { to: "/admin/admin-add-turf", label: "Add Turf", icon: PlusCircle },
     { to: "/admin/transactions", label: "Transactions", icon: IndianRupee },
   ];
 
