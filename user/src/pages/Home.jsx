@@ -1,58 +1,46 @@
 import { Link } from "react-router-dom";
-import Carousel from "../components/common/Carousel";
+import { useSelector } from "react-redux";
+import { ArrowRight } from "lucide-react";
 import Footer from "../components/layout/Footer";
-import useTurfData from "../hooks/useTurfData";
 import TurfCard from "../components/turf/TurfCard";
 import TurfCardSkeleton from "../components/ui/TurfCardSkeleton";
-import { useSelector } from "react-redux";
-import banner1 from "/banner-1.png"
-import banner2 from "/banner-2.jpeg"
-import banner3 from "/banner-3.jpeg"
- 
+import useTurfData from "../hooks/useTurfData";
+import banner from "/banner-2.jpeg";
+
 const Home = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const { turfs, loading } = useTurfData();
-  const slides = [ banner1, banner2, banner3];
-
-  const recentTurfs = [...turfs].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 4);
+  const recentTurfs = [...turfs]
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .slice(0, 4);
+  const turfsPath = isLoggedIn ? "/auth/turfs" : "/turfs";
 
   return (
     <div className="min-h-screen bg-base-100 text-base-content">
-      <div className="hero min-h-[70vh] bg-base-200">
-        <div className="hero-content flex-col lg:flex-row-reverse animate-slide-in-right">
-          <div className="w-full lg:w-1/2">
-            <Carousel slides={slides} />
-          </div>
-          <div className="w-full lg:w-1/2 animate-zoom-in">
-            <h1 className="text-5xl font-bold ">Welcome to <span class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">TurfUp:</span></h1>
-            <p className="py-6">
-            Explore our available slots, grab your gear, and let the games begin! 
-            At TurfUp, it’s all about you, your team, and unforgettable moments on the field.</p>
-            <p className="py-6">
-            Let’s TurfUp and play on!
-            </p>
-            <Link to={isLoggedIn ? "/auth/turfs" : "/signup"} className="text-white no bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br font-medium rounded-lg  px-5 py-2.5 text-center me-2 mb-2">
-              Get Started
-            </Link>
-          </div>
-        </div>
-      </div>
-      <div className="container mx-auto  p-4 animate-slide-in-left">
-      <h2 className="text-3xl font-bold mb-6 mt-10">Recently Added Turfs</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {loading
-            ? Array.from({ length: 4 }).map((_, index) => (
-                <TurfCardSkeleton key={`skeleton-${index}`} />
-              ))
-            : recentTurfs.map((turf) => <TurfCard key={turf._id} turf={turf} />)}
-        </div>
-        <div className="text-center mt-8">
-          <Link
-            to={isLoggedIn ? "/auth/turfs" : "/turfs"}
-            className="text-white no bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-10"
-          >
-            View More Turfs
+      <section className="relative isolate mx-3 flex min-h-[300px] items-end overflow-hidden rounded-3xl bg-[#0b3d1c] text-white sm:mx-4 sm:min-h-[420px]">
+        <img src={banner} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover opacity-55" />
+        <div className="max-w-xl p-6 sm:p-10">
+          <h1 className="text-5xl uppercase leading-[.95] sm:text-7xl">Book a turf. Show up. Play.</h1>
+          <p className="mt-3 text-lg opacity-90">
+            Live availability, instant payment and a QR pass for entry. No calls, no waiting.
+          </p>
+          <Link to={isLoggedIn ? turfsPath : "/signup"} className="btn btn-primary mt-5 gap-2 text-white">
+            {isLoggedIn ? "Find a turf" : "Get started"} <ArrowRight size={16} />
           </Link>
+        </div>
+      </section>
+
+      <div className="container mx-auto p-4">
+        <div className="mb-4 mt-8 flex items-center justify-between">
+          <h2>Recently added</h2>
+          <Link to={turfsPath} className="btn btn-sm btn-ghost">
+            View all
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
+          {loading
+            ? Array.from({ length: 4 }, (_, i) => <TurfCardSkeleton key={i} />)
+            : recentTurfs.map((turf, i) => <TurfCard key={turf._id} turf={turf} index={i} />)}
         </div>
       </div>
       <Footer />

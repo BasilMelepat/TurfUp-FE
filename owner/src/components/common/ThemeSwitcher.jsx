@@ -11,14 +11,15 @@ const ThemeSwitcher = () => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    dispatch(setTheme(newTheme));
-  };
+  const toggleTheme = () => dispatch(setTheme(theme === "light" ? "dark" : "light"));
 
   return (
-    <button className="btn btn-ghost btn-circle me-1" onClick={toggleTheme}>
-      {theme === "light" ? <Moon /> : <Sun />}
+    <button
+      className="btn btn-ghost btn-circle btn-sm"
+      onClick={toggleTheme}
+      aria-label="Toggle theme"
+    >
+      {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
     </button>
   );
 };

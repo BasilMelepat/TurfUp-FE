@@ -1,4 +1,4 @@
-import { parse, addHours, format, isEqual } from "date-fns";
+import { parse, addHours, format, isEqual, isValid } from "date-fns";
 
 export const getEndTime = (startTime, hours) => {
   if (!startTime) return "";
@@ -17,3 +17,10 @@ export const isSameTime = (time1, time2) => {
 export const parseTime = (time) => parse(time, "hh:mm a", new Date());
 
 export const formatTime = (date) => format(date, "hh:mm a");
+
+export const isOpenNow = (openTime, closeTime, now = new Date()) => {
+  if (!openTime || !closeTime) return false;
+  const open = parse(openTime, "hh:mm a", now);
+  const close = parse(closeTime, "hh:mm a", now);
+  return isValid(open) && isValid(close) && now >= open && now < close;
+};

@@ -3,6 +3,7 @@ import useOwnerRequests from "@hooks/admin/useOwnerRequests";
 import OwnerRequestCard from "./OwnerRequestsCard";
 import OwnerRequestsSkeleton from "./OwnerRequestSkeleton";
 import OwnerRequestSearch from "./OwnerRequestSearch";
+import RequestTabs from "./RequestTabs";
 
 const RejectedOwnerRequests = () => {
   const {
@@ -18,9 +19,10 @@ const RejectedOwnerRequests = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6 text-center text-primary">
+      <h1 className="text-4xl uppercase mb-4">
         Rejected Owner Requests
       </h1>
+      <RequestTabs />
       <div className="mb-6">
         <OwnerRequestSearch
           searchTerm={searchTerm}

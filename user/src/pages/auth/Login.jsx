@@ -1,4 +1,3 @@
-import React from 'react';
 import { Mail, Lock } from 'lucide-react';
 import useLoginForm from "../../hooks/useLoginForm";
 import FormField from "../../components/common/FormField";
@@ -52,7 +51,7 @@ const Login = () => {
           </form>
           
           <div className="text-center mt-4">
-            Don't have an account? 
+            Don&apos;t have an account? 
             <Link to="/signup" className="text-primary from-left ml-1">Register</Link>
           </div>
         </div>

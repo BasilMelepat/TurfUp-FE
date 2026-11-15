@@ -1,31 +1,57 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: "Lexend", sans-serif;
+@layer base {
+  html {
+    scroll-padding-top: env(safe-area-inset-top);
+  }
+  body {
+    @apply font-sans text-base antialiased;
+    padding-top: env(safe-area-inset-top);
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display tracking-wide;
+  }
+  h1 {
+    @apply text-4xl font-extrabold;
+  }
+  h2 {
+    @apply text-3xl font-bold;
+  }
+  h3 {
+    @apply text-2xl font-bold;
+  }
+  :focus-visible {
+    outline: 3px solid #10b043;
+    outline-offset: 2px;
+  }
 }
 
-a, NavLink {
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Animated underline, used by footer and auth links */
+a.from-left {
   display: inline-block;
   text-decoration: none;
 }
-
-a:after {
-  display:block;
-  content: '';
-  width: inherit;
-  border-bottom: solid 2px;  
-  transform: scaleX(0);  
+a.from-left:after {
+  display: block;
+  content: "";
+  border-bottom: solid 2px;
+  transform: scaleX(0);
+  transform-origin: left;
   transition: transform 250ms ease-in-out;
 }
-
-a:hover:after { transform: scaleX(1); }
-
-a.from-left:after {
-  transform-origin: left;
+a.from-left:hover:after {
+  transform: scaleX(1);
 }
-
-a.no:after { transform: scaleX(0); }

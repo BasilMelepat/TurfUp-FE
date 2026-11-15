@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Mail, Lock, EyeIcon, EyeOffIcon } from 'lucide-react';
+import { useState } from 'react';
+import { Mail, EyeIcon, EyeOffIcon } from 'lucide-react';
 
 const FormField = ({ 
   label, 

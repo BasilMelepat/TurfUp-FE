@@ -1,20 +1,12 @@
-const TurfCardSkeleton = () => {
-  return (
-    <div className="card bg-base-100 shadow-xl animate-pulse ">
-      <div className="h-48 bg-base-300"></div>
-      <div className="card-body">
-        <div className="h-6 bg-base-300 rounded w-3/4"></div>
-        <div className="flex flex-wrap gap-2 mt-4">
-          <div className="h-6 bg-base-300 rounded w-16"></div>
-          <div className="h-6 bg-base-300 rounded w-16"></div>
-        </div>
-        <div className="h-4 bg-base-300 rounded w-1/2 mt-2"></div>
-        <div className="card-actions justify-end mt-4">
-          <div className="h-10 bg-base-300 rounded w-32"></div>
-        </div>
-      </div>
+const TurfCardSkeleton = () => (
+  <div className="flex animate-pulse overflow-hidden rounded-[20px] border border-base-300 bg-base-100 sm:flex-col">
+    <div className="h-28 w-[104px] bg-base-300 sm:aspect-video sm:h-auto sm:w-full" />
+    <div className="flex-1 space-y-3 p-4">
+      <div className="h-6 w-3/4 rounded bg-base-300" />
+      <div className="h-4 w-1/2 rounded bg-base-300" />
+      <div className="h-8 w-1/3 rounded bg-base-300" />
     </div>
-  );
-};
+  </div>
+);
 
 export default TurfCardSkeleton;

@@ -1,39 +1,33 @@
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { format, addDays, isSameDay } from "date-fns";
+import { useMemo } from "react";
+import { addDays, format, isSameDay } from "date-fns";
+
+const DAYS = 14;
 
 const DateSelection = ({ selectedDate, handleDateChange }) => {
+  const days = useMemo(() => Array.from({ length: DAYS }, (_, i) => addDays(new Date(), i)), []);
+
   return (
-    <div className="flex flex-col space-y-4 mb-6">
-      <div className="w-full">
-        <label className="label">
-          <span className="label-text">Select Date</span>
-        </label>
-        <DatePicker
-          selected={selectedDate}
-          onChange={handleDateChange}
-          dateFormat="dd-MM-yyyy"
-          minDate={new Date()}
-          className="input input-bordered w-full"
-        />
-      </div>
-      <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2">
-        <button
-          className="btn btn-outline btn-sm w-full sm:w-auto"
-          onClick={() => handleDateChange(addDays(selectedDate, -1))}
-          disabled={isSameDay(selectedDate, new Date())}
-        >
-          PREV DATE
-        </button>
-        <div className="badge text-lg text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br p-4">
-          {format(selectedDate, "dd-MM-yyyy")}
-        </div>
-        <button
-          className="btn btn-outline btn-sm w-full sm:w-auto"
-          onClick={() => handleDateChange(addDays(selectedDate, 1))}
-        >
-          NEXT DATE
-        </button>
+    <div>
+      <h3 className="mb-3">Date</h3>
+      <div role="group" aria-label="Select date" className="no-scrollbar -mx-1 flex gap-2 overflow-x-auto px-1 pb-2">
+        {days.map((day) => {
+          const active = isSameDay(day, selectedDate);
+          return (
+            <button
+              key={day.toDateString()}
+              type="button"
+              aria-pressed={active}
+              onClick={() => handleDateChange(day)}
+              className={`flex w-16 shrink-0 flex-col items-center rounded-2xl border py-2 transition ${
+                active ? "border-primary bg-primary text-white" : "border-base-300 bg-base-100 hover:border-primary"
+              }`}
+            >
+              <span className="text-xs opacity-80">{format(day, "EEE")}</span>
+              <span className="font-display text-2xl leading-none">{format(day, "d")}</span>
+              <span className="text-xs opacity-80">{format(day, "MMM")}</span>
+            </button>
+          );
+        })}
       </div>
     </div>
   );

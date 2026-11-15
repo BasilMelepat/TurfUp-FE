@@ -26,6 +26,8 @@ export default function useBookingHistory() {
           formattedStartTime: format(adjustedStartTime, "hh:mm a"),
           formattedEndTime: format(adjustedEndTime, "hh:mm a"),
           date: format(adjustedStartTime, "dd MMM yyyy"),
+          startsAt: adjustedStartTime.getTime(),
+          endsAt: adjustedEndTime.getTime(),
         },
       };
     });

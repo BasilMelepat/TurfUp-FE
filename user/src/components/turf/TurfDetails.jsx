@@ -1,11 +1,23 @@
-import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Activity, ArrowLeft, Clock, IndianRupee, MapPin } from "lucide-react";
 import useTurfData from "../../hooks/useTurfData";
 import useReviews from "../../hooks/useReviews";
 import Reviews from "../reviews/Reviews";
+import Stars from "../common/Stars";
 import TurfDetailsSkeleton from "../ui/TurfDetailsSkeleton";
-import { MapPin, Clock, Activity, IndianRupee } from "lucide-react";
+
+const InfoItem = ({ icon: Icon, label, value }) => (
+  <div className="flex items-center gap-3 rounded-2xl bg-base-200 p-3">
+    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-primary/15 text-primary">
+      <Icon size={20} />
+    </span>
+    <div className="min-w-0">
+      <p className="text-xs font-semibold uppercase tracking-wider opacity-60">{label}</p>
+      <p className="truncate font-medium">{value}</p>
+    </div>
+  </div>
+);
 
 const TurfDetails = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -14,135 +26,79 @@ const TurfDetails = () => {
   const { loading, turfs } = useTurfData();
   const { averageRating } = useReviews(id);
 
-  if (loading) {
-    return <TurfDetailsSkeleton />;
-  }
+  if (loading) return <TurfDetailsSkeleton />;
 
   const turf = turfs.find((t) => t._id === id);
-
   if (!turf) {
     return (
-      <div className="alert alert-warning shadow-lg">
-        <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="stroke-current flex-shrink-0 h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-            />
-          </svg>
-          <span>Turf not found</span>
-        </div>
+      <div className="container mx-auto p-6 text-center">
+        <h2>Turf not found</h2>
+        <button className="btn btn-primary mt-4 text-white" onClick={() => navigate(-1)}>
+          Go back
+        </button>
       </div>
     );
   }
 
-  const handleReservation = () => {
-    if (isLoggedIn) {
-      navigate(`/auth/reserve/${id}`);
-    } else {
-      navigate(`/login`);
-    }
-  };
+  const reserve = () => navigate(isLoggedIn ? `/auth/reserve/${id}` : "/login");
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-slide-in-left">
-        <div className="bg-base-100 shadow-xl rounded-lg overflow-hidden">
-          <div className="relative h-full">
-            <img
-              src={turf.image || "/banner-1.png"}
-              alt={turf.name}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
-              <h2 className="text-3xl font-bold text-white">{turf.name}</h2>
-              <div className="flex items-center space-x-2 text-white">
-                <MapPin className="w-4 h-4" />
-                <p className="text-sm">{turf.location}</p>
-              </div>
-            </div>
-          </div>
+    <div className="container mx-auto px-4 py-4 pb-32">
+      <button onClick={() => navigate(-1)} className="btn btn-ghost btn-sm mb-3 gap-1">
+        <ArrowLeft size={16} /> Back
+      </button>
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        <div className="relative aspect-[16/10] overflow-hidden rounded-3xl bg-base-200 lg:aspect-auto lg:min-h-[380px]">
+          <img
+            src={turf.image || "/banner-1.png"}
+            alt={turf.name}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
         </div>
-        <div className="bg-base-100 shadow-xl rounded-lg p-6">
-          <div className="flex items-center space-x-2 mb-4">
-            <h3 className="text-2xl font-bold">Rating</h3>
-            <div className="rating rating-md">
-              {averageRating ? (
-                [1, 2, 3, 4, 5].map((star) => (
-                  <input
-                    key={star}
-                    type="radio"
-                    name="rating-2"
-                    className="mask mask-star-2 bg-orange-400"
-                    checked={star === Math.round(averageRating)}
-                    readOnly
-                  />
-                ))
-              ) : (
-                <p className="text-sm opacity-70">No reviews yet</p>
-              )}
-            </div>
-            {averageRating && (
-              <span className="text-lg">({averageRating.toFixed(1)})</span>
+
+        <div className="rounded-3xl border border-base-300 bg-base-100 p-5 shadow-sm sm:p-6">
+          <h1 className="text-4xl uppercase sm:text-5xl">{turf.name}</h1>
+          <p className="mt-1 flex items-center gap-1.5 opacity-70">
+            <MapPin size={16} /> {turf.location}
+          </p>
+          <div className="mt-3 flex items-center gap-2">
+            {averageRating ? (
+              <>
+                <Stars value={averageRating} size={18} />
+                <span className="font-medium">{averageRating.toFixed(1)}</span>
+              </>
+            ) : (
+              <span className="text-sm opacity-70">No reviews yet</span>
             )}
           </div>
-          <p className="text-lg mb-6">{turf.description}</p>
-          <div className="grid grid-cols-2 gap-6 mb-6">
-            <InfoItem
-              icon={<IndianRupee />}
-              label="Price per Hour"
-              value={`₹ ${turf.pricePerHour}`}
-            />
-            <InfoItem
-              icon={<Activity />}
-              label="Sports"
-              value={turf.sportTypes.join(", ")}
-            />
-            <InfoItem
-              icon={<Clock />}
-              label="Open Time"
-              value={turf.openTime}
-            />
-            <InfoItem
-              icon={<Clock />}
-              label="Close Time"
-              value={turf.closeTime}
-            />
-          </div>
-          <div className="card-actions">
-            <button
-              className="text-white no bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br font-medium rounded-lg px-5 py-2.5 text-center me-2 mb-10 btn-lg w-full"
-              onClick={handleReservation}
-            >
-              Reserve Now
-            </button>
+          <p className="my-4 text-lg">{turf.description}</p>
+          <div className="grid grid-cols-2 gap-3">
+            <InfoItem icon={IndianRupee} label="Price per hour" value={`₹ ${turf.pricePerHour}`} />
+            <InfoItem icon={Activity} label="Sports" value={turf.sportTypes.join(", ")} />
+            <InfoItem icon={Clock} label="Opens" value={turf.openTime} />
+            <InfoItem icon={Clock} label="Closes" value={turf.closeTime} />
           </div>
         </div>
       </div>
-      <div className="mt-12">
-         <Reviews turfId={id} />
+
+      <div className="mt-10">
+        <Reviews turfId={id} />
+      </div>
+
+      <div className="fixed inset-x-0 bottom-14 z-30 border-t border-base-300 bg-base-100/95 px-4 py-3 backdrop-blur lg:bottom-0">
+        <div className="container mx-auto flex items-center gap-4">
+          <p>
+            <b className="font-display text-2xl tabular-nums">₹{turf.pricePerHour}</b>{" "}
+            <span className="text-sm opacity-70">/ hour</span>
+          </p>
+          <button className="btn btn-primary ml-auto px-8 text-white" onClick={reserve}>
+            Reserve a slot
+          </button>
+        </div>
       </div>
     </div>
   );
 };
-
-const InfoItem = ({ icon, label, value }) => (
-  <div className="flex items-center space-x-3">
-    <div className="bg-primary bg-opacity-10 p-3 rounded-full">
-      {React.cloneElement(icon, { className: "w-6 h-6 text-primary" })}
-    </div>
-    <div>
-      <p className="text-sm font-semibold text-gray-500">{label}</p>
-      <p className="text-lg font-medium">{value}</p>
-    </div>
-  </div>
-);
 
 export default TurfDetails;

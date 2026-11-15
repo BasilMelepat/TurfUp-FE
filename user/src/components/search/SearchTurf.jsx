@@ -1,31 +1,37 @@
-import   { useState } from "react";
+import { useEffect, useRef } from "react";
+import { Search, X } from "lucide-react";
 
-const SearchTurf = ({ onSearch }) => {
-  const [searchTerm, setSearchTerm] = useState("");
+const SearchTurf = ({ value, onChange, autoFocus = false, children }) => {
+  const inputRef = useRef(null);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    onSearch(searchTerm);
-  };
+  useEffect(() => {
+    if (autoFocus) inputRef.current?.focus();
+  }, [autoFocus]);
 
   return (
-    <form onSubmit={handleSearch} 
-      className="flex w-full max-w-xl ml-auto mb-8">
+    <div className="flex items-center gap-2 rounded-2xl border border-base-300 bg-base-100 px-3 shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/25">
+      <Search size={20} className="shrink-0 opacity-60" aria-hidden="true" />
       <input
-        type="text"
-        placeholder="Search for Turfs..."
-        className="input input-bordered w-full"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        ref={inputRef}
+        type="search"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder="Search by name, town or sport"
+        aria-label="Search turfs"
+        className="h-[52px] w-full min-w-0 bg-transparent text-base outline-none [&::-webkit-search-cancel-button]:hidden"
       />
-      <button type="submit" 
-        className="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br font-medium rounded-lg focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-300 p-2.5 ms-2">
-        <svg class="w-8 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-        </svg>
-        <span class="sr-only">Search</span>
-      </button>
-    </form>
+      {value && (
+        <button
+          type="button"
+          onClick={() => onChange("")}
+          aria-label="Clear search"
+          className="btn btn-circle btn-ghost btn-xs"
+        >
+          <X size={14} />
+        </button>
+      )}
+      {children}
+    </div>
   );
 };
 

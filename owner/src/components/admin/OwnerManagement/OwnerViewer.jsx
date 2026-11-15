@@ -1,19 +1,35 @@
- import  useOwners  from "@hooks/admin/useOwners";
-import OwnerList from "./OwnerList";
-import SearchBar from "./SearchBar";
+import { useMemo } from "react";
+import useOwners from "@hooks/admin/useOwners";
 import OwnersSkeleton from "./OwnersSkeleton";
+import Ledger from "@components/common/Ledger";
 
 const OwnerViewer = () => {
-  const { owners, loading, searchTerm, handleSearch } = useOwners();
+  const { owners, loading } = useOwners();
 
- 
+  const rows = useMemo(
+    () =>
+      owners.map((o) => ({
+        id: o._id,
+        name: o.name,
+        sub: o.email,
+        meta: o.phone,
+        status: "Owner",
+        date: new Date(o.createdAt),
+        to: `/admin/owners/${o._id}/turf`,
+        toLabel: "View turfs",
+      })),
+    [owners]
+  );
+
   if (loading) return <OwnersSkeleton />;
 
   return (
-    <div className="container mx-auto p-4 ">
-      <h1 className="text-2xl font-bold mb-4">Owner Viewer</h1>
-      <SearchBar searchTerm={searchTerm} handleSearch={handleSearch} />
-      <OwnerList owners={owners} />
+    <div>
+      <div className="mb-4">
+        <h1 className="text-4xl uppercase">Owners</h1>
+        <p className="opacity-70">Approved turf owners</p>
+      </div>
+      <Ledger rows={rows} noun="owner" headers={["Name", "Phone"]} />
     </div>
   );
 };

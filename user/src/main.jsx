@@ -1,12 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
- import './index.css'
+import './index.css'
 import { Provider } from 'react-redux'
 import {store, persistor} from "./redux/store";
 import { PersistGate } from 'redux-persist/integration/react'
 import { RouterProvider } from 'react-router-dom'
 import router from "./router"
 import { Toaster } from 'react-hot-toast'
+import { hideSplash } from './utils/splash'
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -19,3 +20,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </Provider>
   </React.StrictMode>
 );
+
+hideSplash();

@@ -11,6 +11,19 @@ export default {
         primary: "#10b043",
         "primary-focus": "#10b043",
       },
+      fontFamily: {
+        sans: ["Barlow", "system-ui", "sans-serif"],
+        display: ['"Barlow Condensed"', "system-ui", "sans-serif"],
+      },
+      keyframes: {
+        rise: {
+          "0%": { opacity: "0", transform: "translateY(22px) scale(.97)" },
+          "100%": { opacity: "1", transform: "none" },
+        },
+      },
+      animation: {
+        rise: "rise .5s cubic-bezier(.2,.7,.2,1) backwards",
+      },
       backgroundImage:{
         "banner": "url('/r.png')",
       }

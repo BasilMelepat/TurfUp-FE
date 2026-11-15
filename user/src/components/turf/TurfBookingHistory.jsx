@@ -1,11 +1,19 @@
-import { Clock, MapPin, IndianRupee, Calendar } from "lucide-react";
+import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { Calendar, Clock, IndianRupee, MapPin } from "lucide-react";
 import useBookingHistory from "../../hooks/useBookingHistory";
 import useWriteReview from "../../hooks/useWriteReview";
-import TurfBookingHistorySkeleton from "../../components/ui/TurfBookingHistorySkeleton";
-import WriteReview from "../../components/reviews/WriteReview";
+import TurfBookingHistorySkeleton from "../ui/TurfBookingHistorySkeleton";
+import WriteReview from "../reviews/WriteReview";
+
+const TABS = [
+  ["upcoming", "Upcoming"],
+  ["past", "Past"],
+];
 
 const TurfBookingHistory = () => {
   const { loading, bookings } = useBookingHistory();
+  const [tab, setTab] = useState("upcoming");
   const {
     isReviewModalOpen,
     rating,
@@ -18,60 +26,84 @@ const TurfBookingHistory = () => {
     submitReview,
   } = useWriteReview();
 
-  if (loading) {
-    return <TurfBookingHistorySkeleton />;
-  }
+  const visible = useMemo(() => {
+    const now = Date.now();
+    return bookings
+      .filter((b) => (tab === "past") === (b.timeSlot.endsAt < now))
+      .sort((a, b) => (tab === "past" ? b : a).timeSlot.startsAt - (tab === "past" ? a : b).timeSlot.startsAt);
+  }, [bookings, tab]);
+
+  if (loading) return <TurfBookingHistorySkeleton />;
 
   return (
-    <div className="container mx-auto p-4 bg-base-200 min-h-screen">
-      <h1 className="text-3xl font-bold text-center mb-8">
-        Your Turf Booking History
-      </h1>
-      <div className="space-y-6 mx-auto lg:w-1/2">
-        {bookings.map((booking) => (
-          <div
-            key={booking._id}
-            className="card bg-base-100 shadow-xl animate-bounce-fade-in"
+    <div className="container mx-auto min-h-screen px-4 py-4">
+      <h1 className="mb-3 text-4xl uppercase">My bookings</h1>
+      <div className="join mb-5 w-full max-w-xs" role="group" aria-label="Booking period">
+        {TABS.map(([value, label]) => (
+          <button
+            key={value}
+            type="button"
+            aria-pressed={tab === value}
+            onClick={() => setTab(value)}
+            className={`btn join-item flex-1 ${tab === value ? "btn-primary text-white" : ""}`}
           >
-            <div className="card-body ">
-              <h2 className="card-title text-2xl mb-4">{booking.turf.name}</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <p className="flex items-center">
-                    <MapPin className="mr-2" /> {booking.turf.location}
-                  </p>
-                  <p className="flex items-center">
-                    <Calendar className="mr-2" /> {booking.timeSlot.date}
-                  </p>
-                  <p className="flex items-center">
-                    <Clock className="mr-2" />{" "}
-                    {booking.timeSlot.formattedStartTime} -{" "}
-                    {booking.timeSlot.formattedEndTime}
-                  </p>
-                  <p className="flex items-center">
-                    <IndianRupee className="mr-2" />
-                    {booking.totalPrice}
-                  </p>
-                </div>
-                <div className="flex flex-col justify-center items-center">
-                  <img
-                    src={booking.qrCode}
-                    alt="Booking QR Code"
-                    className="w-32 h-32 mb-2"
-                  />
-                  <p className="text-sm text-gray-500">Scan for details</p>
-                </div>
-              </div>
-              <button
-                className="text-white no bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br font-medium rounded-lg px-5 py-2.5 text-center mt-4"
-                onClick={() => openReviewModal(booking.turf._id)}
-              >
-                Write a Review
-              </button>
-            </div>
-          </div>
+            {label}
+          </button>
         ))}
       </div>
+
+      {visible.length === 0 ? (
+        <div className="rounded-3xl border border-base-300 p-10 text-center">
+          <h3>Nothing here yet</h3>
+          <p className="mb-4 opacity-70">Your {tab} bookings will show up here.</p>
+          <Link to="/auth/turfs" className="btn btn-primary text-white">
+            Find a turf
+          </Link>
+        </div>
+      ) : (
+        <div className="grid gap-4 md:grid-cols-2">
+          {visible.map((booking, i) => (
+            <article
+              key={booking._id}
+              style={{ animationDelay: `${Math.min(i, 8) * 70}ms` }}
+              className="rounded-3xl border border-base-300 bg-base-100 p-4 shadow-sm motion-safe:animate-rise"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0 space-y-1.5">
+                  <h3 className="truncate text-2xl">{booking.turf.name}</h3>
+                  <p className="flex items-center gap-2 text-sm opacity-80">
+                    <MapPin size={15} /> {booking.turf.location}
+                  </p>
+                  <p className="flex items-center gap-2 text-sm opacity-80">
+                    <Calendar size={15} /> {booking.timeSlot.date}
+                  </p>
+                  <p className="flex items-center gap-2 text-sm opacity-80">
+                    <Clock size={15} /> {booking.timeSlot.formattedStartTime} – {booking.timeSlot.formattedEndTime}
+                  </p>
+                  <p className="flex items-center gap-2 font-semibold">
+                    <IndianRupee size={15} /> {booking.totalPrice}
+                  </p>
+                </div>
+                <img
+                  src={booking.qrCode}
+                  alt="Booking QR code"
+                  loading="lazy"
+                  className="h-28 w-28 shrink-0 rounded-xl bg-white p-1"
+                />
+              </div>
+              {tab === "past" && (
+                <button
+                  className="btn btn-outline btn-primary btn-sm mt-3"
+                  onClick={() => openReviewModal(booking.turf._id)}
+                >
+                  Write a review
+                </button>
+              )}
+            </article>
+          ))}
+        </div>
+      )}
+
       {isReviewModalOpen && (
         <WriteReview
           rating={rating}

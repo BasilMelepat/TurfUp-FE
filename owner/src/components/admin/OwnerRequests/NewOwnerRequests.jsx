@@ -1,5 +1,6 @@
 import React from "react";
 import useOwnerRequests from "@hooks/admin/useOwnerRequests";
+import RequestTabs from "./RequestTabs";
 // import useOwnerRequests from "../../../hooks/admin/useOwnerRequests";
 import OwnerRequestCard from "./OwnerRequestsCard";
 import OwnerRequestsSkeleton from "./OwnerRequestSkeleton";
@@ -20,9 +21,10 @@ const NewOwnerRequests = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6 text-center text-primary">
+      <h1 className="text-4xl uppercase mb-4">
         New Owner Requests
       </h1>
+      <RequestTabs />
       <div className="mb-6">
         <OwnerRequestSearch
           searchTerm={searchTerm}

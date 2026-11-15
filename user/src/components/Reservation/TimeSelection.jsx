@@ -8,41 +8,47 @@ const TimeSelection = ({
   timeSlots,
   duration,
 }) => {
-  // const isTimeSlotSelected = (time) => time === selectedStartTime;
-  const isTimeSlotSelected = (time) => {
-    if (!selectedStartTime || !duration) return false;
-    const start = parse(selectedStartTime, "hh:mm a", new Date());
-    const end = addHours(start, duration);
+  const closeTime = parse(timeSlots.closeTime, "hh:mm a", new Date());
+  const start = selectedStartTime ? parse(selectedStartTime, "hh:mm a", new Date()) : null;
+  const end = start && duration ? addHours(start, duration) : null;
+
+  const isSelected = (time) => {
+    if (!start || !end) return false;
     const current = parse(time, "hh:mm a", new Date());
     return current >= start && current < end;
   };
-
-  const isTimeSlotDisabled = (time) => {
-    const closeTime = parse(timeSlots.closeTime, "hh:mm a", new Date());
-    const currentTime = parse(time, "hh:mm a", new Date());
-    return isAfter(currentTime, closeTime) || isTimeSlotBooked(time);
-  };
+  const isDisabled = (time) =>
+    isAfter(parse(time, "hh:mm a", new Date()), closeTime) || isTimeSlotBooked(time);
 
   return (
     <div>
-      <h3 className="text-lg font-semibold mb-4">Select Start Time</h3>
-      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 sm:gap-4">
-        {availableTimes.map((time) => (
-          <button
-            key={time}
-            className={`btn btn-sm ${
-              isTimeSlotSelected(time)
-                ? "text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-lg text-sm text-center me-2 mb-2"
-                : isTimeSlotDisabled(time)
-                ? "btn-disabled"
-                : "btn-ghost"
-            }`}
-            onClick={() => handleTimeSelection(time)}
-            disabled={isTimeSlotDisabled(time)}
-          >
-            {time}
-          </button>
-        ))}
+      <div className="mb-3 flex items-baseline justify-between">
+        <h3>Start time</h3>
+        <span className="text-sm opacity-60">Struck-through = booked</span>
+      </div>
+      <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-6">
+        {availableTimes.map((time) => {
+          const disabled = isDisabled(time);
+          const selected = isSelected(time);
+          return (
+            <button
+              key={time}
+              type="button"
+              aria-pressed={selected}
+              onClick={() => handleTimeSelection(time)}
+              disabled={disabled}
+              className={`btn btn-sm font-medium ${
+                selected
+                  ? "btn-primary text-white"
+                  : disabled
+                  ? "btn-disabled line-through"
+                  : "btn-outline border-base-300"
+              }`}
+            >
+              {time}
+            </button>
+          );
+        })}
       </div>
     </div>
   );
