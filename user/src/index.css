@@ -30,6 +30,17 @@
   }
 }
 
+@layer components {
+  .btn-primary:not(.btn-outline):not(.btn-ghost):not(:disabled) {
+    background-image: linear-gradient(135deg, #14a34b, #0b7a2e);
+    border-color: transparent;
+    color: #fff;
+  }
+  .btn-primary:not(.btn-outline):not(:disabled):hover {
+    filter: brightness(1.1);
+  }
+}
+
 @layer utilities {
   .no-scrollbar {
     scrollbar-width: none;

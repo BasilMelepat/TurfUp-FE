@@ -67,7 +67,7 @@ const OwnerDashboard = () => {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="bookings" fill="#8884d8" name="Bookings" />
+                <Bar dataKey="bookings" fill="#10b043" name="Bookings" />
               </BarChart>
             </ResponsiveContainer>
           </ChartCard>
@@ -85,7 +85,7 @@ const OwnerDashboard = () => {
                 <Line
                   type="monotone"
                   dataKey="revenue"
-                  stroke="#8884d8"
+                  stroke="#0b8a33"
                   name="Revenue"
                 />
               </LineChart>

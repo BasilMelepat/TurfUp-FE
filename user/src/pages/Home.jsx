@@ -18,7 +18,8 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-base-100 text-base-content">
       <section className="relative isolate mx-3 flex min-h-[300px] items-end overflow-hidden rounded-3xl bg-[#0b3d1c] text-white sm:mx-4 sm:min-h-[420px]">
-        <img src={banner} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover opacity-55" />
+        <img src={banner} alt="" className="absolute inset-0 -z-20 h-full w-full object-cover opacity-60" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#0b3d1c] via-[#0b3d1c]/50 to-transparent" />
         <div className="max-w-xl p-6 sm:p-10">
           <h1 className="text-5xl uppercase leading-[.95] sm:text-7xl">Book a turf. Show up. Play.</h1>
           <p className="mt-3 text-lg opacity-90">

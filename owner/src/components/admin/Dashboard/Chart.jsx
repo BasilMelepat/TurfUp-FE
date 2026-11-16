@@ -8,7 +8,7 @@ const Chart = ({ data = [] }) => (
       <XAxis dataKey="name" />
       <YAxis />
       <Tooltip />
-      <Line type="monotone" dataKey="value" stroke="#8884d8" />
+      <Line type="monotone" dataKey="value" stroke="#10b043" />
     </LineChart>
   </ResponsiveContainer>
 );

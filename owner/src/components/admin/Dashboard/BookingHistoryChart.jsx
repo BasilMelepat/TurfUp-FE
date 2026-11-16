@@ -21,8 +21,8 @@ const BookingHistoryChart = ({ data }) => (
           <Area
             type="monotone"
             dataKey="amount"
-            stroke="#8884d8"
-            fill="#8884d8"
+            stroke="#0b8a33"
+            fill="#4ade80"
             fillOpacity={0.3}
           />
         </AreaChart>
